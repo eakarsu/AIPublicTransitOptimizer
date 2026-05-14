@@ -6,8 +6,11 @@ const router = express.Router();
 
 router.get('/', authenticate, async (req, res) => {
   try {
-    const routes = await Route.findAll({ order: [['createdAt', 'DESC']] });
-    res.json(routes);
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 20));
+    const offset = (page - 1) * limit;
+    const { count, rows } = await Route.findAndCountAll({ order: [['createdAt', 'DESC']], limit, offset });
+    res.json({ data: rows, pagination: { page, limit, total: count, totalPages: Math.ceil(count / limit) } });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

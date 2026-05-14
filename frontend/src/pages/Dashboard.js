@@ -88,6 +88,10 @@ function Dashboard({ onLogout }) {
     { key: 'feedback', title: 'Passenger Feedback', desc: 'Customer complaints, compliments, and suggestions', icon: '💬', path: '/feedback', count: stats.feedback, label: 'Tickets' },
     { key: 'energy', title: 'Energy & Sustainability', desc: 'Green transit metrics, emissions, and efficiency tracking', icon: '🌱', path: '/energy', count: stats.energy, label: 'Metrics' },
     { key: 'safety', title: 'Safety & Compliance', desc: 'Safety inspections, risk assessment, and regulatory compliance', icon: '🛡️', path: '/safety', count: stats.safety, label: 'Inspections' },
+    { key: 'rider-chat', title: 'Rider Chat', desc: 'AI-powered journey planning assistant for passengers', icon: '💬', path: '/rider-chat', count: null, label: '' },
+    { key: 'demand-forecast', title: 'Demand Forecast', desc: 'AI ridership demand forecasting with headway recommendations', icon: '📉', path: '/demand-forecast', count: null, label: '' },
+    { key: 'equity-report', title: 'Equity Report', desc: 'AI analysis of service equity across transit zones', icon: '⚖️', path: '/equity-report', count: null, label: '' },
+    { key: 'gtfs-import', title: 'GTFS Import', desc: 'Import stops and routes from GTFS CSV files', icon: '📁', path: '/gtfs-import', count: null, label: '' },
   ];
 
   return (
@@ -190,6 +194,12 @@ export function Sidebar({ onLogout, user, active }) {
     { key: 'feedback', path: '/feedback', icon: '💬', label: 'Feedback' },
     { key: 'energy', path: '/energy', icon: '🌱', label: 'Energy' },
     { key: 'safety', path: '/safety', icon: '🛡️', label: 'Safety' },
+    { key: 'rider-chat', path: '/rider-chat', icon: '💬', label: 'Rider Chat' },
+    { key: 'demand-forecast', path: '/demand-forecast', icon: '📉', label: 'Demand Forecast' },
+    { key: 'equity-report', path: '/equity-report', icon: '⚖️', label: 'Equity Report' },
+    { key: 'gtfs-import', path: '/gtfs-import', icon: '📁', label: 'GTFS Import' },
+    { key: 'crowding-prediction', path: '/crowding-prediction', icon: '👥', label: 'Crowding Prediction' },
+    { key: 'maintenance-triage', path: '/maintenance-triage', icon: '🛠️', label: 'Maintenance Triage' },
   ];
 
   return (

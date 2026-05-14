@@ -253,6 +253,15 @@ const Safety = sequelize.define('Safety', {
   score: { type: DataTypes.FLOAT },
 });
 
+// AiAnalysis Model
+const AiAnalysis = sequelize.define('AiAnalysis', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  userId: { type: DataTypes.INTEGER, allowNull: true },
+  endpoint: { type: DataTypes.STRING(200), allowNull: false },
+  inputData: { type: DataTypes.JSONB },
+  result: { type: DataTypes.TEXT },
+});
+
 module.exports = {
   sequelize,
   User,
@@ -271,4 +280,5 @@ module.exports = {
   Feedback,
   Energy,
   Safety,
+  AiAnalysis,
 };

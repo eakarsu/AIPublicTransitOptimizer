@@ -26,13 +26,25 @@ api.interceptors.response.use(
   }
 );
 
+// Normalize paginated responses for backward compatibility
+// Returns response with data.data = the actual array (or original array if not paginated)
+function normalizeGetAll(promise) {
+  return promise.then(res => {
+    if (res.data && res.data.data && Array.isArray(res.data.data)) {
+      // New paginated format - keep response but also expose flat array for backward compat
+      res.data = res.data.data;
+    }
+    return res;
+  });
+}
+
 export const authAPI = {
   login: (email, password) => api.post('/auth/login', { email, password }),
   me: () => api.get('/auth/me'),
 };
 
 export const routesAPI = {
-  getAll: () => api.get('/routes'),
+  getAll: (params) => normalizeGetAll(api.get('/routes', { params })),
   getOne: (id) => api.get(`/routes/${id}`),
   create: (data) => api.post('/routes', data),
   update: (id, data) => api.put(`/routes/${id}`, data),
@@ -40,7 +52,7 @@ export const routesAPI = {
 };
 
 export const ridershipAPI = {
-  getAll: () => api.get('/ridership'),
+  getAll: (params) => normalizeGetAll(api.get('/ridership', { params })),
   getOne: (id) => api.get(`/ridership/${id}`),
   create: (data) => api.post('/ridership', data),
   update: (id, data) => api.put(`/ridership/${id}`, data),
@@ -48,7 +60,7 @@ export const ridershipAPI = {
 };
 
 export const schedulesAPI = {
-  getAll: () => api.get('/schedules'),
+  getAll: (params) => normalizeGetAll(api.get('/schedules', { params })),
   getOne: (id) => api.get(`/schedules/${id}`),
   create: (data) => api.post('/schedules', data),
   update: (id, data) => api.put(`/schedules/${id}`, data),
@@ -56,7 +68,7 @@ export const schedulesAPI = {
 };
 
 export const faresAPI = {
-  getAll: () => api.get('/fares'),
+  getAll: (params) => normalizeGetAll(api.get('/fares', { params })),
   getOne: (id) => api.get(`/fares/${id}`),
   create: (data) => api.post('/fares', data),
   update: (id, data) => api.put(`/fares/${id}`, data),
@@ -64,7 +76,7 @@ export const faresAPI = {
 };
 
 export const accessibilityAPI = {
-  getAll: () => api.get('/accessibility'),
+  getAll: (params) => normalizeGetAll(api.get('/accessibility', { params })),
   getOne: (id) => api.get(`/accessibility/${id}`),
   create: (data) => api.post('/accessibility', data),
   update: (id, data) => api.put(`/accessibility/${id}`, data),
@@ -72,7 +84,7 @@ export const accessibilityAPI = {
 };
 
 export const fleetAPI = {
-  getAll: () => api.get('/fleet'),
+  getAll: (params) => normalizeGetAll(api.get('/fleet', { params })),
   getOne: (id) => api.get(`/fleet/${id}`),
   create: (data) => api.post('/fleet', data),
   update: (id, data) => api.put(`/fleet/${id}`, data),
@@ -80,7 +92,7 @@ export const fleetAPI = {
 };
 
 export const budgetsAPI = {
-  getAll: () => api.get('/budgets'),
+  getAll: (params) => normalizeGetAll(api.get('/budgets', { params })),
   getOne: (id) => api.get(`/budgets/${id}`),
   create: (data) => api.post('/budgets', data),
   update: (id, data) => api.put(`/budgets/${id}`, data),
@@ -88,7 +100,7 @@ export const budgetsAPI = {
 };
 
 export const incidentsAPI = {
-  getAll: () => api.get('/incidents'),
+  getAll: (params) => normalizeGetAll(api.get('/incidents', { params })),
   getOne: (id) => api.get(`/incidents/${id}`),
   create: (data) => api.post('/incidents', data),
   update: (id, data) => api.put(`/incidents/${id}`, data),
@@ -96,7 +108,7 @@ export const incidentsAPI = {
 };
 
 export const staffAPI = {
-  getAll: () => api.get('/staff'),
+  getAll: (params) => normalizeGetAll(api.get('/staff', { params })),
   getOne: (id) => api.get(`/staff/${id}`),
   create: (data) => api.post('/staff', data),
   update: (id, data) => api.put(`/staff/${id}`, data),
@@ -104,7 +116,7 @@ export const staffAPI = {
 };
 
 export const performanceAPI = {
-  getAll: () => api.get('/performance'),
+  getAll: (params) => normalizeGetAll(api.get('/performance', { params })),
   getOne: (id) => api.get(`/performance/${id}`),
   create: (data) => api.post('/performance', data),
   update: (id, data) => api.put(`/performance/${id}`, data),
@@ -112,7 +124,7 @@ export const performanceAPI = {
 };
 
 export const stopsAPI = {
-  getAll: () => api.get('/stops'),
+  getAll: (params) => normalizeGetAll(api.get('/stops', { params })),
   getOne: (id) => api.get(`/stops/${id}`),
   create: (data) => api.post('/stops', data),
   update: (id, data) => api.put(`/stops/${id}`, data),
@@ -120,7 +132,7 @@ export const stopsAPI = {
 };
 
 export const maintenanceAPI = {
-  getAll: () => api.get('/maintenance'),
+  getAll: (params) => normalizeGetAll(api.get('/maintenance', { params })),
   getOne: (id) => api.get(`/maintenance/${id}`),
   create: (data) => api.post('/maintenance', data),
   update: (id, data) => api.put(`/maintenance/${id}`, data),
@@ -128,7 +140,7 @@ export const maintenanceAPI = {
 };
 
 export const feedbackAPI = {
-  getAll: () => api.get('/feedback'),
+  getAll: (params) => normalizeGetAll(api.get('/feedback', { params })),
   getOne: (id) => api.get(`/feedback/${id}`),
   create: (data) => api.post('/feedback', data),
   update: (id, data) => api.put(`/feedback/${id}`, data),
@@ -136,7 +148,7 @@ export const feedbackAPI = {
 };
 
 export const energyAPI = {
-  getAll: () => api.get('/energy'),
+  getAll: (params) => normalizeGetAll(api.get('/energy', { params })),
   getOne: (id) => api.get(`/energy/${id}`),
   create: (data) => api.post('/energy', data),
   update: (id, data) => api.put(`/energy/${id}`, data),
@@ -144,7 +156,7 @@ export const energyAPI = {
 };
 
 export const safetyAPI = {
-  getAll: () => api.get('/safety'),
+  getAll: (params) => normalizeGetAll(api.get('/safety', { params })),
   getOne: (id) => api.get(`/safety/${id}`),
   create: (data) => api.post('/safety', data),
   update: (id, data) => api.put(`/safety/${id}`, data),
@@ -167,6 +179,16 @@ export const aiAPI = {
   analyzeFeedback: (data) => api.post('/ai/analyze-feedback', data || {}),
   analyzeEnergy: (data) => api.post('/ai/analyze-energy', data || {}),
   analyzeSafety: (data) => api.post('/ai/analyze-safety', data || {}),
+  riderChat: (data) => api.post('/ai/rider-chat', data),
+  forecastDemand: (data) => api.post('/ai/forecast-demand', data || {}),
+  equityReport: () => api.get('/ai/equity-report'),
+  incidentPatterns: (data) => api.post('/ai/incident-patterns', data || {}),
+  crowdingPrediction: (data) => api.post('/ai/crowding-prediction', data || {}),
+  maintenanceTriage: (data) => api.post('/ai/maintenance-triage', data || {}),
+};
+
+export const gtfsAPI = {
+  importGTFS: (formData) => api.post('/gtfs/import', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
 };
 
 export default api;

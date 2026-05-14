@@ -17,6 +17,34 @@ import MaintenancePage from './pages/MaintenancePage';
 import FeedbackPage from './pages/FeedbackPage';
 import EnergyPage from './pages/EnergyPage';
 import SafetyPage from './pages/SafetyPage';
+import RiderChatPage from './pages/RiderChatPage';
+import DemandForecastPage from './pages/DemandForecastPage';
+import EquityReportPage from './pages/EquityReportPage';
+import GTFSImportPage from './pages/GTFSImportPage';
+import CrowdingPredictionPage from './pages/CrowdingPredictionPage';
+import MaintenanceTriagePage from './pages/MaintenanceTriagePage';
+
+// === Batch 07 Gaps & Frontend Mounts ===
+import CfDynamicPricing from './pages/CfDynamicPricing';
+import CfClimateresponsiveOperations from './pages/CfClimateresponsiveOperations';
+import CfEquityImpactSimulation from './pages/CfEquityImpactSimulation';
+import CfAutonomousShuttlePlanner from './pages/CfAutonomousShuttlePlanner';
+import CfIntermodalTripPlanner from './pages/CfIntermodalTripPlanner';
+import CfBehavioralNudging from './pages/CfBehavioralNudging';
+import GapNoCrowdingpredictionPeakLoadsByStoptime from './pages/GapNoCrowdingpredictionPeakLoadsByStoptime';
+import GapNoMaintenancetriageUptimemaximizingPriori from './pages/GapNoMaintenancetriageUptimemaximizingPriori';
+import GapNoAccessibilitycompliancecheckAuditAgains from './pages/GapNoAccessibilitycompliancecheckAuditAgains';
+import GapNoStaffingshiftoptimizationPreferenceaware from './pages/GapNoStaffingshiftoptimizationPreferenceaware';
+import GapExistingEquityreportIsShallowComparedTo from './pages/GapExistingEquityreportIsShallowComparedTo';
+import GapNoRealtimePassengerAlertsannouncementsSm from './pages/GapNoRealtimePassengerAlertsannouncementsSm';
+import GapNoFarePaymentMobileTicketingIntegration from './pages/GapNoFarePaymentMobileTicketingIntegration';
+import GapNoOperatorSchedulingConflictDetection from './pages/GapNoOperatorSchedulingConflictDetection';
+import GapNoServicechangeImpactModelingRouteXDis from './pages/GapNoServicechangeImpactModelingRouteXDis';
+import GapNoPublicWebhookopenDataApi from './pages/GapNoPublicWebhookopenDataApi';
+import GapNoNotificationsSystemForStaff from './pages/GapNoNotificationsSystemForStaff';
+import GapNoAuditLogOfDispatchDecisions from './pages/GapNoAuditLogOfDispatchDecisions';
+// === End Batch 07 ===
+
 import './App.css';
 
 function App() {
@@ -56,6 +84,32 @@ function App() {
         <Route path="/feedback" element={P(FeedbackPage)} />
         <Route path="/energy" element={P(EnergyPage)} />
         <Route path="/safety" element={P(SafetyPage)} />
+        <Route path="/rider-chat" element={P(RiderChatPage)} />
+        <Route path="/demand-forecast" element={P(DemandForecastPage)} />
+        <Route path="/equity-report" element={P(EquityReportPage)} />
+        <Route path="/gtfs-import" element={P(GTFSImportPage)} />
+        <Route path="/crowding-prediction" element={P(CrowdingPredictionPage)} />
+        <Route path="/maintenance-triage" element={P(MaintenanceTriagePage)} />
+          // === Batch 07 Gaps & Frontend Mounts ===
+          <Route path='/cf-dynamic-pricing' element={<CfDynamicPricing />} />
+          <Route path='/cf-climateresponsive-operations' element={<CfClimateresponsiveOperations />} />
+          <Route path='/cf-equity-impact-simulation' element={<CfEquityImpactSimulation />} />
+          <Route path='/cf-autonomous-shuttle-planner' element={<CfAutonomousShuttlePlanner />} />
+          <Route path='/cf-intermodal-trip-planner' element={<CfIntermodalTripPlanner />} />
+          <Route path='/cf-behavioral-nudging' element={<CfBehavioralNudging />} />
+          <Route path='/gap-no-crowdingprediction-peak-loads-by-stoptime' element={<GapNoCrowdingpredictionPeakLoadsByStoptime />} />
+          <Route path='/gap-no-maintenancetriage-uptimemaximizing-priori' element={<GapNoMaintenancetriageUptimemaximizingPriori />} />
+          <Route path='/gap-no-accessibilitycompliancecheck-audit-agains' element={<GapNoAccessibilitycompliancecheckAuditAgains />} />
+          <Route path='/gap-no-staffingshiftoptimization-preferenceaware' element={<GapNoStaffingshiftoptimizationPreferenceaware />} />
+          <Route path='/gap-existing-equityreport-is-shallow-compared-to' element={<GapExistingEquityreportIsShallowComparedTo />} />
+          <Route path='/gap-no-realtime-passenger-alertsannouncements-sm' element={<GapNoRealtimePassengerAlertsannouncementsSm />} />
+          <Route path='/gap-no-fare-payment-mobile-ticketing-integration' element={<GapNoFarePaymentMobileTicketingIntegration />} />
+          <Route path='/gap-no-operator-scheduling-conflict-detection' element={<GapNoOperatorSchedulingConflictDetection />} />
+          <Route path='/gap-no-servicechange-impact-modeling-route-x-dis' element={<GapNoServicechangeImpactModelingRouteXDis />} />
+          <Route path='/gap-no-public-webhookopen-data-api' element={<GapNoPublicWebhookopenDataApi />} />
+          <Route path='/gap-no-notifications-system-for-staff' element={<GapNoNotificationsSystemForStaff />} />
+          <Route path='/gap-no-audit-log-of-dispatch-decisions' element={<GapNoAuditLogOfDispatchDecisions />} />
+          // === End Batch 07 ===
       </Routes>
     </Router>
   );
