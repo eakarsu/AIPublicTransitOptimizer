@@ -90,3 +90,9 @@ app.use('/api/gap-no-public-webhookopen-data-api', require('./routes/gap-no-publ
 app.use('/api/gap-no-notifications-system-for-staff', require('./routes/gap-no-notifications-system-for-staff'));
 app.use('/api/gap-no-audit-log-of-dispatch-decisions', require('./routes/gap-no-audit-log-of-dispatch-decisions'));
 // === End Batch 07 ===
+
+// Custom Views (public transit optimization) — mounted BEFORE 404 handler
+app.use('/api/custom-views', require('./routes/customViews'));
+
+// 404 fallback
+app.use((req, res) => res.status(404).json({ error: 'Not Found', path: req.originalUrl }));

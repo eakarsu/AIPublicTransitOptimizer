@@ -23,6 +23,7 @@ import EquityReportPage from './pages/EquityReportPage';
 import GTFSImportPage from './pages/GTFSImportPage';
 import CrowdingPredictionPage from './pages/CrowdingPredictionPage';
 import MaintenanceTriagePage from './pages/MaintenanceTriagePage';
+import CustomViewsPage from './pages/CustomViewsPage';
 
 // === Batch 07 Gaps & Frontend Mounts ===
 import CfDynamicPricing from './pages/CfDynamicPricing';
@@ -90,6 +91,7 @@ function App() {
         <Route path="/gtfs-import" element={P(GTFSImportPage)} />
         <Route path="/crowding-prediction" element={P(CrowdingPredictionPage)} />
         <Route path="/maintenance-triage" element={P(MaintenanceTriagePage)} />
+        <Route path="/custom-views" element={P(CustomViewsPage)} />
           // === Batch 07 Gaps & Frontend Mounts ===
           <Route path='/cf-dynamic-pricing' element={<CfDynamicPricing />} />
           <Route path='/cf-climateresponsive-operations' element={<CfClimateresponsiveOperations />} />
