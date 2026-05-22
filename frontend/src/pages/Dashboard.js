@@ -200,6 +200,7 @@ export function Sidebar({ onLogout, user, active }) {
     { key: 'gtfs-import', path: '/gtfs-import', icon: '📁', label: 'GTFS Import' },
     { key: 'crowding-prediction', path: '/crowding-prediction', icon: '👥', label: 'Crowding Prediction' },
     { key: 'maintenance-triage', path: '/maintenance-triage', icon: '🛠️', label: 'Maintenance Triage' },
+    { key: 'custom-views', path: '/custom-views', icon: '📊', label: 'Transit Views' },
   ];
 
   return (

@@ -15,7 +15,7 @@ function parseAIJson(text) {
 
 async function queryOpenRouter(prompt, systemPrompt = 'You are an AI transit optimization expert. Provide detailed, professional analysis.', options = {}) {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  const model = 'anthropic/claude-3-5-sonnet-20241022';
+  const model = process.env.OPENROUTER_MODEL || 'anthropic/claude-3-5-sonnet-20241022';
 
   if (!apiKey || apiKey === 'your_openrouter_api_key_here') {
     return {

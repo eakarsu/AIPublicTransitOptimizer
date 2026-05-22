@@ -48,6 +48,9 @@ import GapNoAuditLogOfDispatchDecisions from './pages/GapNoAuditLogOfDispatchDec
 
 import './App.css';
 
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -68,6 +71,9 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/codex/custom-viz" element={<CodexCustomVizFeature />} />
+        <Route path="/codex/operations" element={<CodexOperationsFeature />} />
+
         <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
         <Route path="/" element={P(Dashboard)} />
         <Route path="/routes" element={P(RoutesPage)} />
