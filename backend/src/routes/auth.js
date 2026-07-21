@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { jwtSecret } = require('../config/security');
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.post('/login', async (req, res) => {
     }
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, role: user.role },
-      process.env.JWT_SECRET || 'transit-optimizer-secret-key-2024',
+      jwtSecret(),
       { expiresIn: '24h' }
     );
     res.json({ token, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
@@ -31,7 +32,7 @@ router.get('/me', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ error: 'No token' });
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'transit-optimizer-secret-key-2024');
+    const decoded = jwt.verify(token, jwtSecret());
     res.json(decoded);
   } catch {
     res.status(401).json({ error: 'Invalid token' });

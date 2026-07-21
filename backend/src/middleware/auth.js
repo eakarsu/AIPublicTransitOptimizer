@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { jwtSecret } = require('../config/security');
 
 const authenticate = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -6,7 +7,7 @@ const authenticate = (req, res, next) => {
     return res.status(401).json({ error: 'Authentication required' });
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'transit-optimizer-secret-key-2024');
+    const decoded = jwt.verify(token, jwtSecret());
     req.user = decoded;
     next();
   } catch (error) {

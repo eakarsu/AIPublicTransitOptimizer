@@ -22,17 +22,27 @@ const energyRoutes = require('./routes/energy');
 const safetyRoutes = require('./routes/safety');
 const aiRoutes = require('./routes/ai');
 const gtfsRoutes = require('./routes/gtfs');
+const { authenticate } = require('./middleware/auth');
+const { validateRuntime } = require('./governance/runtime');
+const { createProviderGate } = require('./governance/providerGate');
+const governanceRouter = require('./governance/router');
+
+validateRuntime();
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 3001;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 app.use(helmet());
-app.use(cors({ origin: CLIENT_URL, credentials: true }));
+const allowedOrigins=String(process.env.CORS_ORIGINS||CLIENT_URL).split(',').map(v=>v.trim()).filter(Boolean);
+app.use(cors({origin:(origin,cb)=>!origin||allowedOrigins.includes(origin)?cb(null,true):cb(new Error('Origin not allowed by CORS')),credentials:true}));
 app.use(express.json());
+app.use(createProviderGate(['/api/ai','/api/gap']));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.get('/api/health', (_req,res)=>res.json({status:'ok',timestamp:new Date().toISOString()}));
+app.use('/api', authenticate);
 app.use('/api/routes', routeRoutes);
 app.use('/api/ridership', ridershipRoutes);
 app.use('/api/schedules', scheduleRoutes);
@@ -50,6 +60,7 @@ app.use('/api/energy', energyRoutes);
 app.use('/api/safety', safetyRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/gtfs', gtfsRoutes);
+app.use('/api/governed-transit-plans', governanceRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -60,8 +71,10 @@ async function start() {
   try {
     await sequelize.authenticate();
     console.log('Database connected successfully.');
-    await sequelize.sync({ alter: false });
-    console.log('Models synchronized.');
+    if (process.env.ENABLE_LEGACY_SCHEMA_BOOTSTRAP === 'true') {
+      await sequelize.sync({ alter: false });
+      console.log('Legacy model synchronization completed by explicit opt-in.');
+    }
 
     app.listen(PORT, () => {
       console.log(`Backend server running on port ${PORT}`);
