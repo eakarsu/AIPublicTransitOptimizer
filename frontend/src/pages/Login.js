@@ -8,8 +8,8 @@ function Login({ onLogin }) {
   const [loading, setLoading] = useState(false);
 
   const handleAutofill = () => {
-    setEmail('admin@transit.gov');
-    setPassword('admin123');
+    setEmail(process.env.REACT_APP_DEMO_EMAIL || '');
+    setPassword(process.env.REACT_APP_DEMO_PASSWORD || '');
   };
 
   const handleSubmit = async (e) => {

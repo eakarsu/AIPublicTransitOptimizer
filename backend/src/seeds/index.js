@@ -2,6 +2,12 @@ require('dotenv').config({ path: require('path').join(__dirname, '../../../.env'
 const bcrypt = require('bcryptjs');
 const { sequelize, User, Route, Ridership, Schedule, Fare, Accessibility, Fleet, Budget, Incident, Staff, Performance, Stop, Maintenance, Feedback, Energy, Safety } = require('../models');
 
+function requireDemoPassword() {
+  const password = process.env.DEMO_PASSWORD || process.env.SEED_DEMO_PASSWORD || process.env.DEMO_SEED_PASSWORD || '';
+  if (password.length < 12 || password.length > 1024) throw new Error('DEMO_PASSWORD must contain 12-1024 characters');
+  return password;
+}
+
 async function seed() {
   try {
     await sequelize.authenticate();
@@ -10,7 +16,7 @@ async function seed() {
     console.log('Tables created.');
 
     // Seed Users
-    const hashedPassword = await bcrypt.hash('admin123', 10);
+    const hashedPassword = await bcrypt.hash(requireDemoPassword(), 10);
     await User.bulkCreate([
       { email: 'admin@transit.gov', password: hashedPassword, name: 'Transit Admin', role: 'admin' },
       { email: 'planner@transit.gov', password: hashedPassword, name: 'Route Planner', role: 'planner' },
@@ -320,7 +326,7 @@ async function seed() {
     console.log('\nSeeding completed successfully!');
     console.log('Login credentials:');
     console.log('  Email: admin@transit.gov');
-    console.log('  Password: admin123');
+    console.log('Demo login users provisioned from the local environment.');
     process.exit(0);
   } catch (error) {
     console.error('Seeding failed:', error);
