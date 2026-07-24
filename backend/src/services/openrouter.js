@@ -25,7 +25,8 @@ async function queryOpenRouter(prompt, systemPrompt = 'You are an AI transit opt
   }
 
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const baseUrl = (process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1').replace(/\/$/, '');
+    const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +54,10 @@ async function queryOpenRouter(prompt, systemPrompt = 'You are an AI transit opt
     if (parsed.error) {
       return { success: false, error: parsed.error.message || 'API error' };
     }
-    const content = parsed.choices?.[0]?.message?.content || 'No response generated';
+    const content = parsed.choices?.[0]?.message?.content;
+    if (!content || !String(content).trim()) {
+      return { success: false, error: 'OpenRouter returned an empty response' };
+    }
     return { success: true, content, model: parsed.model, usage: parsed.usage };
   } catch (e) {
     return { success: false, error: e.message };
