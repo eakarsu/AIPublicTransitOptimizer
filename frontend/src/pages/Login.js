@@ -36,7 +36,7 @@ function Login({ onLogin }) {
         <p className="subtitle">AI-Powered Public Transit Management</p>
 
         <button className="btn-autofill" onClick={handleAutofill} type="button">
-          Quick Login — Auto-fill Credentials
+          Auto Fill Demo Credentials
         </button>
 
         {error && <div className="error-msg">{error}</div>}
