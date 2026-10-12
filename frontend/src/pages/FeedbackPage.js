@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Sidebar } from './Dashboard';
 import AIResult from '../components/AIResult';
+import FullFieldPresets from '../components/FullFieldPresets';
 import DataToolbar, { SortableHeader, SummaryCards, useDataTable } from '../components/DataToolbar';
 import { feedbackAPI, aiAPI } from '../services/api';
 
@@ -116,6 +117,11 @@ function FeedbackPage({ onLogout }) {
           </div>
         </div>
 
+        <FullFieldPresets
+          value={{ aiContext }}
+          choices={{ aiContext: ['Focus on weekday peak-hour service and crowding at the busiest stops.', 'Compare this against last quarter and flag the biggest service gaps.', 'Prioritize low-cost operational changes with the highest rider impact.'] }}
+          onChange={(next) => { if (next.aiContext !== undefined) setAiContext(next.aiContext); }}
+        />
         <div className="ai-context-section">
           <label>Additional Context for AI Analysis</label>
           <textarea value={aiContext} onChange={(e) => setAiContext(e.target.value)} placeholder="Add any specific questions or context for the AI analysis..." />

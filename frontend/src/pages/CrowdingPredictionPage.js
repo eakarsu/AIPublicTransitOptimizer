@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Sidebar } from './Dashboard';
 import { aiAPI } from '../services/api';
 import AIResult from '../components/AIResult';
+import JsonReport from '../components/JsonReport';
+import FullFieldPresets from '../components/FullFieldPresets';
 
 export default function CrowdingPredictionPage({ onLogout }) {
   const [windowHours, setWindowHours] = useState(24);
@@ -46,6 +48,17 @@ export default function CrowdingPredictionPage({ onLogout }) {
         </div>
 
         <div style={{ background: '#1e293b', borderRadius: 8, padding: 20, marginBottom: 24 }}>
+          <FullFieldPresets
+            value={{ stopId, windowHours }}
+            choices={{
+              stopId: ['STOP-1001', 'STOP-2044', 'STOP-3312'],
+              windowHours: [24, 72, 168],
+            }}
+            onChange={(next) => {
+              if (next.stopId !== undefined) setStopId(next.stopId);
+              if (next.windowHours !== undefined) setWindowHours(next.windowHours);
+            }}
+          />
           <form
             onSubmit={handleRun}
             style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}
@@ -131,7 +144,7 @@ export default function CrowdingPredictionPage({ onLogout }) {
             <div style={{ fontWeight: 600, marginBottom: 12, color: 'white' }}>Peak Periods</div>
             <ul style={{ color: '#cbd5e1', paddingLeft: 18 }}>
               {peaks.map((p, i) => (
-                <li key={i}>{typeof p === 'string' ? p : JSON.stringify(p)}</li>
+                <li key={i}>{typeof p === 'string' ? p : <JsonReport data={p} title="Peak period" />}</li>
               ))}
             </ul>
           </div>
@@ -142,7 +155,7 @@ export default function CrowdingPredictionPage({ onLogout }) {
             <div style={{ fontWeight: 600, marginBottom: 12, color: 'white' }}>Operator Actions</div>
             <ul style={{ color: '#cbd5e1', paddingLeft: 18 }}>
               {operatorActions.map((a, i) => (
-                <li key={i}>{typeof a === 'string' ? a : JSON.stringify(a)}</li>
+                <li key={i}>{typeof a === 'string' ? a : <JsonReport data={a} title="Operator action" />}</li>
               ))}
             </ul>
           </div>
@@ -153,7 +166,7 @@ export default function CrowdingPredictionPage({ onLogout }) {
             <div style={{ fontWeight: 600, marginBottom: 12, color: 'white' }}>Rider Messaging</div>
             <ul style={{ color: '#cbd5e1', paddingLeft: 18 }}>
               {messaging.map((m, i) => (
-                <li key={i}>{typeof m === 'string' ? m : JSON.stringify(m)}</li>
+                <li key={i}>{typeof m === 'string' ? m : <JsonReport data={m} title="Rider message" />}</li>
               ))}
             </ul>
           </div>

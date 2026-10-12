@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DataToolbar, { SortableHeader, SummaryCards, useDataTable } from '../components/DataToolbar';
 import { Sidebar } from './Dashboard';
 import AIResult from '../components/AIResult';
+import FullFieldPresets from '../components/FullFieldPresets';
 import { accessibilityAPI, aiAPI } from '../services/api';
 
 const emptyItem = { stationName: '', wheelchairAccess: false, elevatorAvailable: false, tactilePaving: false, audioAnnouncements: false, brailleSignage: false, lowFloorVehicles: false, complianceScore: '', lastAuditDate: '', status: 'partial', notes: '' };
@@ -89,6 +90,11 @@ function AccessibilityPage({ onLogout }) {
 
         <SummaryCards items={summaryItems} />
 
+        <FullFieldPresets
+          value={{ aiContext }}
+          choices={{ aiContext: ['Focus on weekday peak-hour service and crowding at the busiest stops.', 'Compare this against last quarter and flag the biggest service gaps.', 'Prioritize low-cost operational changes with the highest rider impact.'] }}
+          onChange={(next) => { if (next.aiContext !== undefined) setAiContext(next.aiContext); }}
+        />
         <div className="ai-context-section">
           <label>Additional Context for AI Analysis</label>
           <textarea value={aiContext} onChange={(e) => setAiContext(e.target.value)} placeholder="Add any specific questions or context..." />

@@ -35,8 +35,8 @@ function Login({ onLogin }) {
         <h1>Transit Optimizer</h1>
         <p className="subtitle">AI-Powered Public Transit Management</p>
 
-        <button className="btn-autofill" onClick={handleAutofill} type="button">
-          Auto Fill Demo Credentials
+        <button className="btn-autofill" onClick={async (event) => { await (handleAutofill)(event); window.setTimeout(() => { const form = document.querySelector("form"); if (form) form.requestSubmit(); }, 150); }} type="button">
+          Log In as Demo
         </button>
 
         {error && <div className="error-msg">{error}</div>}

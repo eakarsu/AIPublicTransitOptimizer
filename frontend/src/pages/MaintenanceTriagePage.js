@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sidebar } from './Dashboard';
 import { aiAPI } from '../services/api';
 import AIResult from '../components/AIResult';
+import JsonReport from '../components/JsonReport';
 
 export default function MaintenanceTriagePage({ onLogout }) {
   const [aiResult, setAiResult] = useState(null);
@@ -79,7 +80,7 @@ export default function MaintenanceTriagePage({ onLogout }) {
             <div style={{ fontWeight: 600, marginBottom: 12, color: '#fbbf24' }}>Deferrable</div>
             <ul style={{ color: '#cbd5e1', paddingLeft: 18 }}>
               {deferrable.map((d, i) => (
-                <li key={i}>{typeof d === 'string' ? d : JSON.stringify(d)}</li>
+                <li key={i}>{typeof d === 'string' ? d : <JsonReport data={d} title="Deferrable item" />}</li>
               ))}
             </ul>
           </div>
@@ -92,7 +93,7 @@ export default function MaintenanceTriagePage({ onLogout }) {
             </div>
             <ul style={{ color: '#fca5a5', paddingLeft: 18 }}>
               {fleetAtRisk.map((f, i) => (
-                <li key={i}>{typeof f === 'string' ? f : JSON.stringify(f)}</li>
+                <li key={i}>{typeof f === 'string' ? f : <JsonReport data={f} title="Fleet at risk" />}</li>
               ))}
             </ul>
           </div>
