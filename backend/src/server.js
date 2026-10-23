@@ -104,6 +104,7 @@ app.use('/api/gap-no-notifications-system-for-staff', require('./routes/gap-no-n
 app.use('/api/gap-no-audit-log-of-dispatch-decisions', require('./routes/gap-no-audit-log-of-dispatch-decisions'));
 // === End Batch 07 ===
 
+app.use('/api/feature-pack', require('./routes/featurePack'));
 // Custom Views (public transit optimization) — mounted BEFORE 404 handler
 app.use('/api/custom-views', require('./routes/customViews'));
 
